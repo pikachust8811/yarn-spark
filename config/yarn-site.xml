@@ -21,17 +21,17 @@
 
   <property>
     <name>yarn.resourcemanager.hostname</name>
-    <value>hadoop</value>
+    <value>master</value>
   </property>
 
   <property>
     <name>yarn.nodemanager.hostname</name>
-    <value>hadoop</value>
+    <value>master</value>
   </property>
 
   <property>
     <name>yarn.timeline-service.hostname</name>
-    <value>hadoop</value>
+    <value>master</value>
   </property>
 
   <property>

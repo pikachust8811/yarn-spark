@@ -5,5 +5,13 @@ This project focus on creating Spark on Yarn nodes, for master/slave and driver.
 [ire7715/yarn-spark](https://hub.docker.com/r/ire7715/yarn-spark/)
 
 # Mannual Settings
+## Assumptions
+1. All nodes assume the master node is named **master**
+
+## All nodes
+1. Set **yarn.resourcemanager.hostname**, **yarn.nodemanager.hostname** and **yarn.timeline-service.hostname** to your master node in  `/usr/local/hadoop/etc/hadoop/yarn-site.xml`
+2. Set **fs.defaultFS** to your master node in `/usr/local/hadoop/etc/hadoop/core-site.xml`
+
 ## Driver Nodes
-1. Set the "`spark.eventLog.enabled` to `true`" and "the host name of `spark.eventLog.dir` to your master node" in `/usr/local/spark/conf/spark-default.xml`
+1. Set the **spark.eventLog.enabled** to **true** in `/usr/local/spark/conf/spark-default.xml`
+2. Set the host name of **spark.eventLog.dir** to your master node in `/usr/local/spark/conf/spark-default.xml`
