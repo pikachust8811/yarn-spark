@@ -1,9 +1,26 @@
 # Spark on Yarn Docker
 This project focus on creating Spark on Yarn nodes, for master/slave and driver.
 
+----
 # Docker Hub
 [ire7715/yarn-spark](https://hub.docker.com/r/ire7715/yarn-spark/)
 
+----
+# Usage
+## Build an Image
+`docker build -t yarn-spark:${VERSION}`
+## Pull an Iamge
+`docker pull ire7715/yarn-spark:${VERSION}`
+## Run a Conatiner
+> Volume is recommended, so you won't loose your data once after the container deleted.
+````
+docker volume create hdfs-data
+docker run -d --name yarn-spark-${NUMBER} \
+  --mount source=hdfs-data,target=/hdfs-data \
+  ire7715/yarn-spark:${VERSION}
+````
+
+----
 # Mannual Settings
 ## Assumptions
 1. All nodes assume the master node is named **master**
