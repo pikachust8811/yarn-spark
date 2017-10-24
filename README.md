@@ -9,16 +9,16 @@ This project focus on creating Spark on Yarn nodes, for master/slave and driver.
 # Usage
 > In the following instructions, `${VERSION}` needs to be the built version. All avaiable versions list can be found at [ire7715/yarn-spark@DockerHub](https://hub.docker.com/r/ire7715/yarn-spark/tags/).
 ## Build an Image
-`docker build -t yarn-spark:${VERSION} .`
+`docker build -t yarn-spark:h2.7.1-s2.2.0 .`
 ## Pull an Iamge
-`docker pull ire7715/yarn-spark:${VERSION}`
+`docker pull ire7715/yarn-spark:h2.7.1-s2.2.0`
 ## Run a Conatiner
 > Volume is recommended, so you won't loose your data once after the container deleted.
 ````
 docker volume create hdfs-data
 docker run -d --name yarn-spark-${NUMBER} \
   --mount source=hdfs-data,target=/hdfs-data \
-  ire7715/yarn-spark:${VERSION}
+  ire7715/yarn-spark:h2.7.1-s2.2.0
 ````
 
 ----
