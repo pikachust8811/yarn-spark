@@ -29,6 +29,9 @@ docker run -d --name yarn-spark-${NUMBER} \
 1. Set **yarn.resourcemanager.hostname** and **yarn.timeline-service.hostname** to your master node in  `/usr/local/hadoop/etc/hadoop/yarn-site.xml`
 2. Set **fs.defaultFS** to your master node in `/usr/local/hadoop/etc/hadoop/core-site.xml`
 
+## Master Node
+1. Set environment variable with `docker run -e "NODE_TYPE=master" ...` on master node, so the **/etc/bootstrap.sh** can execute the corresponding scripts for master node.
+
 ## Driver Nodes
 1. Set the **spark.eventLog.enabled** to **true** in `/usr/local/spark/conf/spark-default.xml`
 2. Set the host name of **spark.eventLog.dir** to your master node in `/usr/local/spark/conf/spark-default.xml`
