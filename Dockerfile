@@ -10,6 +10,8 @@ RUN wget https://d3kbcqa49mib13.cloudfront.net/spark-2.2.0-bin-hadoop2.7.tgz -O 
 
 COPY config/core-site.xml $HADOOP_PREFIX/etc/hadoop/core-site.xml
 
+COPY config/hdfs-site.xml $HADOOP_PREFIX/etc/hadoop/hdfs-site.xml
+
 COPY config/yarn-site.xml $HADOOP_PREFIX/etc/hadoop/yarn-site.xml
 
 ENV HADOOP_HOME $HADOOP_PREFIX
@@ -19,4 +21,8 @@ ENV SPARK_HOME /usr/local/spark
 
 COPY config/spark* /usr/local/spark/conf/
 
-CMD ["/bin/bash"]
+# RUN $HADOOP_PREFIX/bin/hdfs namenode -format -force -nonInteractive -clusterId CID-ad0f7812-4dcc-40d7-875b-3d37fab57b31
+
+COPY bootstrap.sh /etc/bootstrap.sh
+
+CMD ["/etc/bootstrap.sh", "-bash"]
