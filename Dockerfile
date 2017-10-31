@@ -21,7 +21,8 @@ ENV SPARK_HOME /usr/local/spark
 
 COPY config/spark* /usr/local/spark/conf/
 
-# RUN $HADOOP_PREFIX/bin/hdfs namenode -format -force -nonInteractive -clusterId CID-ad0f7812-4dcc-40d7-875b-3d37fab57b31
+RUN mkdir -p /hdfs-data/dfs/{name,data}; \
+    $HADOOP_PREFIX/bin/hdfs namenode -format -force -nonInteractive -clusterId CID-ad0f7812-4dcc-40d7-875b-3d37fab57b31
 
 COPY bootstrap.sh /etc/bootstrap.sh
 
