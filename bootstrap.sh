@@ -15,7 +15,7 @@ if [ "$NODE_TYPE" == "master" ]; then
 
   $HADOOP_PREFIX/bin/hadoop fs -mkdir -p /user/spark/events
   $SPARK_HOME/sbin/start-history-server.sh
-else
+elif [ "$NODE_TYPE" == "slave" ]; then
   $HADOOP_PREFIX/sbin/hadoop-daemon.sh start datanode
   $HADOOP_PREFIX/sbin/yarn-daemon.sh start nodemanager
 fi
