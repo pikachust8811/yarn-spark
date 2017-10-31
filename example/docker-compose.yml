@@ -20,6 +20,8 @@ services:
 
   slave-1:
     image: ire7715/yarn-spark:${VERSION}
+    environment:
+      - NODE_TYPE=slave
     tty: true
     networks:
       - yarn_network
@@ -30,6 +32,8 @@ services:
 
   slave-2:
     image: ire7715/yarn-spark:${VERSION}
+    environment:
+      - NODE_TYPE=slave
     tty: true
     networks:
       - yarn_network
@@ -37,6 +41,12 @@ services:
       - type: volume
         source: slave_2_data
         target: /hdfs-data
+
+  driver:
+    image: ire7715/yarn-spark:${VERSION}
+    tty: true
+    networks:
+      - yarn_network
 
 volumes:
   master_data:

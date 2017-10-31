@@ -32,6 +32,9 @@ docker run -d --name yarn-spark-${NUMBER} \
 ## Master Node
 1. Set environment variable with `docker run -e "NODE_TYPE=master" ...` on master node, so the **/etc/bootstrap.sh** can execute the corresponding scripts for master node.
 
+## Slave Node
+1. Set environment variable with `docker run -e "NODE_TYPE=slave" ...` on master node, so the **/etc/bootstrap.sh** can execute the corresponding scripts for master node.
+
 ## Driver Nodes
 1. Set the **spark.eventLog.enabled** to **true** in `/usr/local/spark/conf/spark-default.xml`
 2. Set the host name of **spark.eventLog.dir** to your master node in `/usr/local/spark/conf/spark-default.xml`
