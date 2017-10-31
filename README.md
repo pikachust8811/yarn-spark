@@ -8,7 +8,7 @@ This project focus on creating Spark on Yarn nodes, for master/slave and driver.
 ----
 # Usage
 ## Build an Image
-`docker build -t yarn-spark:${VERSION}`
+`docker build -t yarn-spark:${VERSION} .`
 ## Pull an Iamge
 `docker pull ire7715/yarn-spark:${VERSION}`
 ## Run a Conatiner
@@ -26,7 +26,7 @@ docker run -d --name yarn-spark-${NUMBER} \
 1. All nodes assume the master node is named **master**
 
 ## All nodes
-1. Set **yarn.resourcemanager.hostname**, **yarn.nodemanager.hostname** and **yarn.timeline-service.hostname** to your master node in  `/usr/local/hadoop/etc/hadoop/yarn-site.xml`
+1. Set **yarn.resourcemanager.hostname** and **yarn.timeline-service.hostname** to your master node in  `/usr/local/hadoop/etc/hadoop/yarn-site.xml`
 2. Set **fs.defaultFS** to your master node in `/usr/local/hadoop/etc/hadoop/core-site.xml`
 
 ## Driver Nodes
