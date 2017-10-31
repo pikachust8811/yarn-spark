@@ -7,6 +7,7 @@ This project focus on creating Spark on Yarn nodes, for master/slave and driver.
 
 ----
 # Usage
+> In the following instructions, `${VERSION}` needs to be the built version. All avaiable versions list can be found at [ire7715/yarn-spark@DockerHub](https://hub.docker.com/r/ire7715/yarn-spark/tags/).
 ## Build an Image
 `docker build -t yarn-spark:${VERSION} .`
 ## Pull an Iamge
