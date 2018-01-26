@@ -1,22 +1,60 @@
-FROM pjfanning/docker-hadoop-jdk8:2.7.1
+FROM centos:7
 
-RUN yum clean all && \
-    rpm --rebuilddb && \
-    yum install -y wget
+RUN yum install -y which
 
-RUN wget https://d3kbcqa49mib13.cloudfront.net/spark-2.2.0-bin-hadoop2.7.tgz -O /tmp/spark.tgz && \
-    tar xf /tmp/spark.tgz -C /usr/local/ && \
-    ln -s /usr/local/spark-2.2.0-bin-hadoop2.7 /usr/local/spark
+RUN yum install -y java-1.8.0-openjdk-devel.x86_64 && \
+    ln -s $(dirname $(dirname $(dirname $(readlink -f /usr/bin/java)))) /usr/local/java
+ENV JAVA_HOME=/usr/local/java \
+    PATH=$PATH:$JAVA_HOME/bin
 
-COPY config/core-site.xml $HADOOP_PREFIX/etc/hadoop/core-site.xml
+RUN curl -s http://apache.stu.edu.tw/hadoop/common/hadoop-2.6.5/hadoop-2.6.5.tar.gz | \
+    tar -xz -C /usr/local/ && \
+    ln -s /usr/local/hadoop-2.6.5 /usr/local/hadoop
+ENV HADOOP_PREFIX=/usr/local/hadoop \
+    HADOOP_COMMON_HOME=/usr/local/hadoop \
+    HADOOP_HDFS_HOME=/usr/local/hadoop \
+    HADOOP_MAPRED_HOME=/usr/local/hadoop \
+    HADOOP_YARN_HOME=/usr/local/hadoop \
+    HADOOP_CONF_DIR=/usr/local/hadoop/etc/hadoop \
+    YARN_CONF_DIR=$HADOOP_PREFIX/etc/hadoop
 
-COPY config/yarn-site.xml $HADOOP_PREFIX/etc/hadoop/yarn-site.xml
+COPY config/hdfs-site.xml /usr/local/hadoop/etc/hadoop/hdfs-site.xml
+COPY config/core-site.xml /usr/local/hadoop/etc/hadoop/core-site.xml
 
-ENV HADOOP_HOME $HADOOP_PREFIX
-ENV YARN_HOME $HADOOP_PREFIX
+RUN /usr/local/hadoop/bin/hdfs namenode -format -force -nonInteractive -clusterId CID-8f4a74c5-c3bf-454b-98a4-544eaba3abc5
 
-ENV SPARK_HOME /usr/local/spark
+COPY config/yarn-site.xml /usr/local/hadoop/etc/hadoop/yarn-site.xml
+COPY config/mapred-site.xml /usr/local/hadoop/etc/hadoop/mapred-site.xml
 
-COPY config/spark* /usr/local/spark/conf/
+RUN curl -s https://archive.apache.org/dist/spark/spark-1.6.1/spark-1.6.1-bin-hadoop2.6.tgz | \
+    tar -xz -C /usr/local/ && \
+    ln -s /usr/local/spark-1.6.1-bin-hadoop2.6 /usr/local/spark
+ENV SPARK_HOME=/usr/local/spark \
+    PATH=$PATH:$SPARK_HOME/bin
 
-CMD ["/bin/bash"]
+COPY config/spark-defaults.conf /usr/local/spark/conf/spark-defaults.conf
+COPY config/spark-env.sh /usr/local/spark/conf/spark-env.sh
+
+EXPOSE 50070
+EXPOSE 50075
+EXPOSE 9000
+EXPOSE 50010
+EXPOSE 50020
+EXPOSE 50090
+EXPOSE 8020
+EXPOSE 9000
+EXPOSE 19888
+EXPOSE 8030-8033
+EXPOSE 8040
+EXPOSE 8042
+EXPOSE 8088
+EXPOSE 31000-31100
+EXPOSE 49707
+EXPOSE 2122
+
+COPY bootstrap.sh /etc/bootstrap.sh
+
+RUN chmod +x /usr/local/hadoop/etc/hadoop/*.sh && \
+    chmod +x /usr/local/spark/conf/*.sh
+
+CMD ["/etc/bootstrap.sh", "-bash"]
