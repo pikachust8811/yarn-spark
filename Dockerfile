@@ -60,4 +60,4 @@ COPY bootstrap.sh /etc/bootstrap.sh
 RUN chmod +x /usr/local/hadoop/etc/hadoop/*.sh && \
     chmod +x /usr/local/spark/conf/*.sh
 
-CMD ["/etc/bootstrap.sh"]
+CMD ["/etc/bootstrap.sh", "-bash"]
