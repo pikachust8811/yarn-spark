@@ -35,8 +35,8 @@ ENV SPARK_HOME=/usr/local/spark \
 COPY config/spark-defaults.conf /usr/local/spark/conf/spark-defaults.conf
 COPY config/spark-env.sh /usr/local/spark/conf/spark-env.sh
 
-RUN find /usr/local/hadoop/ -type f -name "netty-3*" -exec mv '{}' '{}'.bak \; -exec cp /usr/local/spark/jars/netty-3.9.9.Final.jar '{}' \;
-RUN find /usr/local/hadoop/ -type f -name "netty-all*" -exec mv '{}' '{}'.bak \; -exec cp /usr/local/spark/jars/netty-all-4.0.43.Final.jar '{}' \;
+RUN find /usr/local/hadoop/ -type f -name "netty-[0-9]*.[0-9]*.[0-9]*.Final.jar" -exec mv '{}' '{}'.bak \; -exec bash -c 'cp /usr/local/spark/jars/netty-[0-9]*.[0-9]*.[0-9]*.Final.jar $(dirname {})' \;
+RUN find /usr/local/hadoop/ -type f -name "netty-all-[0-9]*.[0-9]*.[0-9]*.Final.jar" -exec mv '{}' '{}'.bak \; -exec bash -c 'cp /usr/local/spark/jars/netty-all-4.0.43.Final.jar $(dirname {})' \;
 
 EXPOSE 50070
 EXPOSE 50075
