@@ -7,9 +7,9 @@ RUN yum install -y java-1.8.0-openjdk-devel.x86_64 && \
 ENV JAVA_HOME=/usr/local/java \
     PATH=$PATH:$JAVA_HOME/bin
 
-RUN curl -s http://ftp.tc.edu.tw/pub/Apache/hadoop/common/hadoop-2.7.4/hadoop-2.7.4.tar.gz | \
+RUN curl -s http://apache.stu.edu.tw/hadoop/common/hadoop-2.7.5/hadoop-2.7.5.tar.gz | \
     tar -xz -C /usr/local/ && \
-    ln -s /usr/local/hadoop-2.7.4 /usr/local/hadoop
+    ln -s /usr/local/hadoop-2.7.5 /usr/local/hadoop
 ENV HADOOP_PREFIX=/usr/local/hadoop \
     HADOOP_COMMON_HOME=/usr/local/hadoop \
     HADOOP_HDFS_HOME=/usr/local/hadoop \
