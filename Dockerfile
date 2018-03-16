@@ -7,9 +7,9 @@ RUN yum install -y java-1.8.0-openjdk-devel.x86_64 && \
 ENV JAVA_HOME=/usr/local/java \
     PATH=$PATH:$JAVA_HOME/bin
 
-RUN curl -s http://apache.stu.edu.tw/hadoop/common/hadoop-2.8.3/hadoop-2.8.3.tar.gz | \
+RUN curl -s http://apache.stu.edu.tw/hadoop/common/hadoop-2.9.0/hadoop-2.9.0.tar.gz | \
     tar -xz -C /usr/local/ && \
-    ln -s /usr/local/hadoop-2.8.3 /usr/local/hadoop
+    ln -s /usr/local/hadoop-2.9.0 /usr/local/hadoop
 ENV HADOOP_PREFIX=/usr/local/hadoop \
     HADOOP_COMMON_HOME=/usr/local/hadoop \
     HADOOP_HDFS_HOME=/usr/local/hadoop \
@@ -26,9 +26,9 @@ RUN /usr/local/hadoop/bin/hdfs namenode -format -force -nonInteractive -clusterI
 COPY config/yarn-site.xml /usr/local/hadoop/etc/hadoop/yarn-site.xml
 COPY config/mapred-site.xml /usr/local/hadoop/etc/hadoop/mapred-site.xml
 
-RUN curl -s https://d3kbcqa49mib13.cloudfront.net/spark-2.2.0-bin-hadoop2.7.tgz | \
+RUN curl -s http://apache.stu.edu.tw/spark/spark-2.3.0/spark-2.3.0-bin-hadoop2.7.tgz | \
     tar -xz -C /usr/local/ && \
-    ln -s /usr/local/spark-2.2.0-bin-hadoop2.7 /usr/local/spark
+    ln -s /usr/local/spark-2.3.0-bin-hadoop2.7 /usr/local/spark
 ENV SPARK_HOME=/usr/local/spark \
     PATH=$PATH:$SPARK_HOME/bin
 
