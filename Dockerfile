@@ -37,6 +37,7 @@ COPY config/spark-env.sh /usr/local/spark/conf/spark-env.sh
 
 RUN find /usr/local/hadoop/ -type f -name "netty-[0-9]*.[0-9]*.[0-9]*.Final.jar" -exec mv '{}' '{}'.bak \; -exec bash -c 'cp /usr/local/spark/jars/netty-[0-9]*.[0-9]*.[0-9]*.Final.jar $(dirname {})' \;
 RUN find /usr/local/hadoop/ -type f -name "netty-all-[0-9]*.[0-9]*.[0-9]*.Final.jar" -exec mv '{}' '{}'.bak \; -exec bash -c 'cp /usr/local/spark/jars/netty-all-[0-9]*.[0-9]*.[0-9]*.Final.jar $(dirname {})' \;
+RUN find /usr/local/hadoop/ -type f -name "commons-lang3-[0-9]*.[0-9]*.jar" -exec mv '{}' '{}'.bak \; -exec bash -c 'cp /usr/local/spark/jars/commons-lang3-[0-9]*.[0-9]*.jar $(dirname {})' \;
 
 EXPOSE 50070
 EXPOSE 50075
