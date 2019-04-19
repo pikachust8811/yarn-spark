@@ -2,11 +2,11 @@ version: '3.2'
 
 services:
   master:
-    image: ire7715/yarn-spark:${VERSION}
+    image: pikachust8811/yarn-spark:h2.9.0-s2.3.0
     ports:
       - "50070:50070"
-      - "8088:8088"
       - "50075:50075"
+      - "8088:8088"
       - "18080:18080"
     environment:
       - NODE_TYPE=master
@@ -19,7 +19,7 @@ services:
         target: /data
 
   slave-1:
-    image: ire7715/yarn-spark:${VERSION}
+    image: pikachust8811/yarn-spark:h2.9.0-s2.3.0
     environment:
       - NODE_TYPE=slave
     tty: true
@@ -30,20 +30,20 @@ services:
         source: slave_1_data
         target: /data
 
-  slave-2:
-    image: ire7715/yarn-spark:${VERSION}
-    environment:
-      - NODE_TYPE=slave
-    tty: true
-    networks:
-      - yarn_network
-    volumes:
-      - type: volume
-        source: slave_2_data
-        target: /data
+  # slave-2:
+  #   image: pikachust8811/yarn-spark:h2.9.0-s2.3.0
+  #   environment:
+  #     - NODE_TYPE=slave
+  #   tty: true
+  #   networks:
+  #     - yarn_network
+  #   volumes:
+  #     - type: volume
+  #       source: slave_2_data
+  #       target: /data
 
   driver:
-    image: ire7715/yarn-spark:${VERSION}
+    image: pikachust8811/yarn-spark:h2.9.0-s2.3.0
     tty: true
     networks:
       - yarn_network
@@ -51,7 +51,7 @@ services:
 volumes:
   master_data:
   slave_1_data:
-  slave_2_data:
+  # slave_2_data:
 
 networks:
   yarn_network:
