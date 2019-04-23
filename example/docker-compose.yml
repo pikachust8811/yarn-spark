@@ -2,57 +2,31 @@ version: '3.2'
 
 services:
   master:
-    image: pikachust8811/yarn-spark:h2.9.0-s2.3.0
+    image: pikachust8811/docker-spark:1.0.4
+    tty: true
     ports:
+      - "8888:8888"
       - "50070:50070"
       - "50075:50075"
       - "8088:8088"
       - "18080:18080"
+      - "7077:7077"
+      - "31000-31004:31000-31004"
+      - "31032-31036:31032-31036"
     environment:
-      - NODE_TYPE=master
-    tty: true
+      - HOST_IP=192.168.15.244
+      - MASTER_HOSTNAME=master
+      - JUPYTER_AUTH_TOKEN=password
     networks:
-      - yarn_network
+      - spark_network
     volumes:
       - type: volume
-        source: master_data
+        source: jupyter_data
         target: /data
-
-  slave-1:
-    image: pikachust8811/yarn-spark:h2.9.0-s2.3.0
-    environment:
-      - NODE_TYPE=slave
-    tty: true
-    networks:
-      - yarn_network
-    volumes:
-      - type: volume
-        source: slave_1_data
-        target: /data
-
-  # slave-2:
-  #   image: pikachust8811/yarn-spark:h2.9.0-s2.3.0
-  #   environment:
-  #     - NODE_TYPE=slave
-  #   tty: true
-  #   networks:
-  #     - yarn_network
-  #   volumes:
-  #     - type: volume
-  #       source: slave_2_data
-  #       target: /data
-
-  driver:
-    image: pikachust8811/yarn-spark:h2.9.0-s2.3.0
-    tty: true
-    networks:
-      - yarn_network
 
 volumes:
-  master_data:
-  slave_1_data:
-  # slave_2_data:
+  jupyter_data:
 
 networks:
-  yarn_network:
+  spark_network:
     driver: "bridge"
