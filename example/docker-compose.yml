@@ -2,19 +2,18 @@ version: '3.2'
 
 services:
   master:
-    image: pikachust8811/docker-spark:1.0.4
+    image: pikachust8811/all-in-one:1.1.0
     tty: true
     ports:
-      - "8888:8888"
+      - "18080:18080"
+      - "4040-4049:4040-4049"
       - "50070:50070"
       - "50075:50075"
-      - "8088:8088"
-      - "18080:18080"
       - "7077:7077"
-      - "31000-31004:31000-31004"
-      - "31032-31036:31032-31036"
+      - "8088:8088"
+      - "8888:8888"
+      - "9000:9000"
     environment:
-      - HOST_IP=192.168.15.244
       - MASTER_HOSTNAME=master
       - JUPYTER_AUTH_TOKEN=password
     networks:

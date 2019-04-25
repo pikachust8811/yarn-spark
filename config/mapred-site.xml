@@ -17,10 +17,8 @@
 <!-- Put site-specific property overrides in this file. -->
 
 <configuration>
-
   <property>
-    <name>yarn.app.mapreduce.am.job.client.port-range</name>
-    <value>31000-31100</value>
+    <name>mapreduce.framework.name</name>
+    <value>yarn</value>
   </property>
-
 </configuration>
